@@ -1,0 +1,110 @@
+import groovy.xml.MarkupBuilder
+
+plugins {
+//    id("ch.ayedo.jooqmodelator") version "3.5.0"
+}
+
+dependencies {
+    annotationProcessor("org.projectlombok:lombok")
+    annotationProcessor("org.mapstruct:mapstruct-processor")
+
+    compileOnly("org.projectlombok:lombok")
+    compileOnly("org.mapstruct:mapstruct")
+
+    runtimeOnly("org.flywaydb:flyway-core")
+    runtimeOnly("org.postgresql:postgresql")
+
+    compile("com.google.guava:guava")
+    //graph
+    compile("org.jgrapht:jgrapht-core:1.3.1")
+    // caffeine cache
+    compile("com.github.ben-manes.caffeine:caffeine:2.8.0")
+
+    compile("org.jooq:jooq")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("org.springframework.boot:spring-boot-starter-validation")
+
+    testImplementation("com.castlery.commons:commons-test-support")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+//    jooqModelatorRuntime('org.postgresql:postgresql')
+}
+
+//def jooqConfig = "${project.projectDir}/src/main/generated/configuration.xml"
+//def jooqTargetPath = "${project.projectDir}/src/main/generated".toString()
+//def migrations = "${project.projectDir}/src/main/resources/db/migration".toString()
+//
+//def jooqGeneratedSourcesDir = file(jooqTargetPath)
+//
+//sourceSets {
+//    main {
+//        java {
+//            srcDirs += jooqGeneratedSourcesDir
+//        }
+//    }
+//}
+//
+//idea {
+//    module {
+//        sourceDirs += jooqGeneratedSourcesDir
+//        generatedSourceDirs += jooqGeneratedSourcesDir
+//    }
+//}
+//
+//clean {
+//    delete jooqGeneratedSourcesDir
+//}
+//
+//jooqModelator {
+//    jooqVersion = '3.11.9'
+//    jooqEdition = 'OSS'
+//    jooqConfigPath = jooqConfig
+//    jooqOutputPath = jooqTargetPath
+//    migrationEngine = 'FLYWAY'
+//    migrationsPaths = [migrations]
+//    dockerTag = 'postgres:10.6'
+//    dockerEnv = ['POSTGRES_DB=oms', 'POSTGRES_USER=postgres', 'POSTGRES_PASSWORD=']
+//    dockerHostPort = 25432
+//    dockerContainerPort = 5432
+//}
+//
+//task('jooqConfigure') {
+//    outputs.upToDateWhen { false }
+//    outputs.file jooqConfig
+//    doLast {
+//        new File(jooqConfig).withWriter { writer ->
+//            def xml = new MarkupBuilder(writer)
+//            xml.doubleQuotes = true
+//            xml.mkp.xmlDeclaration(version: '1.0', encoding: 'utf-8')
+//            xml.configuration('xmlns': "http://www.jooq.org/xsd/jooq-codegen-3.11.0.xsd") {
+//                jdbc() {
+//                    driver('org.postgresql.Driver')
+//                    url("jdbc:postgresql://localhost:25432/oms?loggerLevel=OFF")
+//                    user('postgres')
+//                    password('')
+//                }
+//                generator() {
+//                    database() {
+//                        inputSchema("public")
+//                        excludes("flyway_schema_history|postgres_fdw.*")
+//                    }
+//                    generate() {
+//                        relations(true)
+//                        deprecated(false)
+//                        records(true)
+//                        immutablePojos(false)
+//                        fluentSetters(true)
+//                    }
+//                    target() {
+//                        packageName('com.castlery.oms.db.jooq')
+//                        directory(jooqTargetPath)
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
+//// generateJooqMetamodel is added dynamically after project evaluation
+//project.afterEvaluate {
+//    tasks.findByName('compileJava')?.dependsOn tasks.getByName('generateJooqMetamodel')
+//    tasks.findByName('generateJooqMetamodel')?.dependsOn tasks.getByName('jooqConfigure')
+//}
